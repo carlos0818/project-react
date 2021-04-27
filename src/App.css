@@ -1,0 +1,11 @@
+body{
+    margin: 20px;
+}
+
+.Todo-complete{
+    text-decoration: line-through;
+}
+
+.App {
+    background-color: #F6F6EF;
+}
