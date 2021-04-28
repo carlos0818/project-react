@@ -2,10 +2,113 @@ body{
     margin: 20px;
 }
 
+ul {
+    list-style: none;
+}
+
 .Todo-complete{
     text-decoration: line-through;
 }
 
 .App {
     background-color: #F6F6EF;
+    padding-bottom: 50px;
+}
+
+.title {
+    background-color: #FF6600;
+    padding-left: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.vote {
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: 15px 15px;
+    outline: none;
+    border-color: transparent;
+}
+
+.upvote {
+    background-image: url('./assets/images/upvote.png');
+    margin-left: 5px;
+}
+
+.downvote {
+    background-image: url('./assets/images/downvote.png');
+    margin-right: 5px;
+}
+
+.list-posts {
+    margin-bottom: 15px;
+}
+
+.list-posts a {
+    display: block;
+    color: #828282;
+    font-weight: bold;
+    font-size: 12px;
+    margin-left: 50px;
+    margin-top: 3px;
+}
+
+.form {
+    border: 1px solid #C4C4C4;
+    display: inline-block;
+    width: 500px;
+    margin-top: 20px;
+    margin-left: 20px;
+    height: auto;
+}
+
+.form-title {
+    display: block;
+    font-weight: bold;
+    padding: 5px;
+    padding-left: 15px;
+    background-color: #C4C4C4;
+    margin-bottom: 10px;
+}
+
+.form ul {
+    padding: 0;
+    margin: 0;
+}
+
+.form ul li {
+    margin: 0;
+    padding: 0;
+}
+
+.input {
+    height: 25px;
+    border: 2px solid black;
+    width: 350px;
+}
+
+.label {
+    margin-top: 10px;
+    display: inline-block;
+    width: 70px;
+    font-weight: bold;
+    padding-left: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.submit-button {
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    width: 200px;
+    height: 30px;
+    background-color: #FF6600;
+    border-color: transparent;
+    border-radius: 20px;
+    color: black;
+    font-weight: bold;
+    font-size: 16px;
 }

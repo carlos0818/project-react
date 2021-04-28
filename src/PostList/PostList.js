@@ -92,14 +92,18 @@ class PostList extends React.Component {
     
         return (
           <div>
-            <h3>Tech News</h3>
-            { todoList}
-            <div>
-              New Submission<br/>
-              <input type="text" value={ this.state.titleTextboxValue } onChange={ this.handleTitleTextboxChange }></input><br/>
-              <input type="text" value={ this.state.urlTextboxValue } onChange={ this.handleUrlTextboxChange }></input><br/>
+            <h3 className="title">Tech News</h3>
+            <ol>
+              { todoList}
+            </ol>
+            <div className="form">
+              <ul>
+                <li><a className="form-title">New Submission</a></li>
+                <li><a className="label">Title:</a><input className="input" type="text" value={ this.state.titleTextboxValue } onChange={ this.handleTitleTextboxChange }></input></li>
+                <li><a className="label">URL:</a><input className="input" type="text" value={ this.state.urlTextboxValue } onChange={ this.handleUrlTextboxChange }></input></li>
 
-              <button onClick={this.handleAddButtonPress}>Submit</button>
+                <li><button className="submit-button" onClick={this.handleAddButtonPress}>Submit</button></li>
+              </ul>
             </div>
           </div>
         );
