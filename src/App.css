@@ -100,11 +100,11 @@ ul {
 }
 
 .submit-button {
+    padding: 5px;
     margin-top: 20px;
     margin-left: 20px;
     margin-bottom: 20px;
-    width: 200px;
-    height: 30px;
+    width: 170px;
     background-color: #FF6600;
     border-color: transparent;
     border-radius: 20px;
