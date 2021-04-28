@@ -21,8 +21,8 @@ class Post extends React.Component {
     //return JSX element
     return (
       <li className="list-posts">
-        <button className="vote upvote" onClick={ this.handleUpvote }></button>
-        <button className="vote downvote" onClick={ this.handleDownvote }></button>
+        <button className="vote upvote" title="Up" onClick={ this.handleUpvote }></button>
+        <button className="vote downvote" title="Down" onClick={ this.handleDownvote }></button>
         <strong>{this.props.title}</strong> <a className="url">({this.props.url})</a>
         <a>{this.props.points} points</a>
       </li>
