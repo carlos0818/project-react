@@ -55,6 +55,13 @@ ul {
     margin-top: 3px;
 }
 
+.url {
+    display: inline !important;
+    margin-left: 5px !important;
+    color: #828282;
+    font-size: 15px !important;
+}
+
 .form {
     border: 1px solid #C4C4C4;
     display: inline-block;
