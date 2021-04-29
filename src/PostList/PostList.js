@@ -25,16 +25,19 @@ class PostList extends React.Component {
       //- if loading succeeds make sure you set isLoaded to true in the state
       //- if loading fails set isLoaded to true AND error to true in the state
 
-      let newData = [
-        { id: 1, title: "Apple releases new M1 based Macbooks and Mac Mini", url: "https://www.apple.com/mac/m1/", points: 98 },
-        { id: 2, title: "C++ for Dummies", url: "https://www.dummies.com/programming/cpp/", points: 0 },
-        { id: 3, title: "Automate the Boring Stuff with Python", url: "https://automatetheboringstuff.com/", points: 90 },
-        { id: 4, title: "New version of TailwindCSS released", url: "https://tailwindcss.com/", points: 90 }
-      ];
+      fetch('http://localhost:5000/posts')
+          .then(res => res.json())
+          .then(json => {
+              json.forEach(function(post, index){
+                let domain = post.url.replace('http://','').replace('https://','').replace('www.','').split(/[/?#]/)[0];
+                post.url = domain;
+              });
 
-      this.setState(function(state){
-        return { data: newData, isLoaded: true };
-      })
+              this.setState({
+                isLoaded: true,
+                data: json
+              })
+          });
     }
   
     handleAddButtonPress() {
@@ -43,6 +46,41 @@ class PostList extends React.Component {
       // -- if the call succeeds, add the copy of the post you receive from the API
       // to your local copy of the data
       // -- if an error occurs set error to true in the state
+      let newData = this.state.data;
+      let domain = (this.state.urlTextboxValue).replace('http://','').replace('https://','').replace('www.','').split(/[/?#]/)[0];
+
+      newData.push({ id: this.state.data.length + 1, title: this.state.titleTextboxValue, url: domain, points: 0 });
+      this.setState(
+        function (state) {
+          return { data: newData, itemCount: this.state.data.length, points: 0 };
+        }
+
+      );
+
+       fetch('http://localhost:5000/posts', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            id: this.state.id,
+            title: this.state.titleTextboxValue,
+            url: this.state.urlTextboxValue
+          })
+        }).then( (response) => {
+          console.log(response)
+          this.setState(
+            function(state){
+              return {
+                titleTextboxValue: "",
+                urlTextboxValue: "",
+                isLoaded: true,
+                error: null,
+                data: newData,
+              }
+          })
+        });
     }
   
     handleTitleTextboxChange(event){
@@ -66,6 +104,30 @@ class PostList extends React.Component {
         //- Modify the local copy of the data
         //- Upvote the post on the server via API call
         //- if an error occurs set error to true in the state
+
+        let newData = this.state.data;
+
+        let foundIndex = -1;
+        newData.forEach(function(post, index){
+            if(post.id === id){
+                foundIndex = index;
+            }
+        });
+
+        if(foundIndex !== -1){
+            newData[foundIndex].points = newData[foundIndex].points + 1;
+            this.setState(function(state){
+                return { data: newData };
+            });
+        }
+
+        fetch(`http://localhost:5000/posts/${newData[foundIndex].id}/upvote`, {
+          method: 'PATCH',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          }
+        });
     }
 
     handleDownvote(id){
@@ -73,6 +135,32 @@ class PostList extends React.Component {
         //- Modify the local copy of the data
         //- Downvote the post on the server via API call
         //- if an error occurs set error to true in the state
+
+        let newData = this.state.data;
+
+        let foundIndex = -1;
+        newData.forEach(function(post, index){
+            if(post.id === id){
+                foundIndex = index;
+            }
+        });
+
+        if(foundIndex !== -1){
+            if(newData[foundIndex].points > 0)
+              newData[foundIndex].points = newData[foundIndex].points - 1;
+              
+            this.setState(function(state){
+                return { data: newData };
+            });
+        }
+
+        fetch(`http://localhost:5000/posts/${newData[foundIndex].id}/downvote`, {
+          method: 'PATCH',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          }
+        });
     }
   
     render() {
